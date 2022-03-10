@@ -43,8 +43,8 @@
 .orig x3400 ;;push_val(int val)implement your push function that will push a value onto the stack
     ST R7, backup_r7_3400
     
-    STR R0, R6, #0
-    ADD R6, R6, #1
+    STR R0, R6, #0 ;stores value in R0 into memory address stored in R6
+    ADD R6, R6, #1 ;moves to next memory location (new top of stack)
 
     LD R7, backup_r7_3400
     RET
@@ -61,20 +61,20 @@
     ST R4, backup_r4_3800
     ST R7, backup_r7_3800
     
-    AND R4, R4, #0
+    AND R4, R4, #0 ;R4 <- 0
     
-    ADD R6, R6, #-1
-    LDR R1, R6, #0
-    STR R4, R6, #0
+    ADD R6, R6, #-1 ;R6 <- memory address for top of stack
+    LDR R1, R6, #0 ;loads value stored in memory address (R6) into R1
+    STR R4, R6, #0 ;"pop" (sets memory address stored in R6 to 0)
     
-    ADD R6, R6, #-1
-    LDR R2, R6, #0
+    ADD R6, R6, #-1 ;R6 <- memory address for new top of stack
+    LDR R2, R6, #0 ;loads value stored in memory address (R6) into R2
     
-    AND R3, R3, #0
-    ADD R3, R1, R2
-    STR R3, R6, #0
+    AND R3, R3, #0 ;R3 <- 0
+    ADD R3, R1, R2 ;R3 <- sum of popped values (R1 + R2)
+    STR R3, R6, #0 ;replaces old top of stack for sum
     
-    ADD R6, R6, #1
+    ADD R6, R6, #1 ;moves to next memory location
 
     LD R1, backup_r1_3800
     LD R2, backup_r2_3800
@@ -93,7 +93,7 @@
 
 
 .orig x4200 ;;data you might need
-    test .BLKW #100
+    test .BLKW #5
 .end
 
 
